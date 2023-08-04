@@ -1,0 +1,13 @@
+{
+    ".html": "text/html",
+    ".css": "text/css",
+    ".js": "application/javascript",
+    ".jpg": "image/jpg",
+    ".png": "image/png",
+    ".eot": "application/vnd.ms-fontobject",
+    ".svg": "image/svg+xml",
+    ".ttf": "application/x-font-ttf",
+    ".woff": "font/woff",
+    ".otf": "application/x-font-otf",
+    ".scss": "text/x-scss"
+}

@@ -61,7 +61,13 @@ resource "aws_s3_object" "error" {
   content_type = "text/html"
 }
 
-resource "aws_s3_object" "object" {
+locals {
+  website_files = fileset("www/assets/", "**")
+
+  mime_types = jsondecode(file("mime.json"))
+}
+
+resource "aws_s3_object" "assets" {
   depends_on = [
     aws_s3_bucket.s3,
     aws_s3_bucket_ownership_controls.s3_ownership,
@@ -74,7 +80,7 @@ resource "aws_s3_object" "object" {
   source   = "www/assets/${each.key}"
   acl      = "public-read"
   etag     = filemd5("www/assets/${each.key}")
-  #   content_type = lookup(local.content_type_map, split(".", "www/assets/${each.value}")[1], "text/html")
+  content_type = lookup(local.mime_types, regex("\\.[^.]+$", each.key), null)
 }
 
 resource "aws_s3_bucket_website_configuration" "s3_config" {
