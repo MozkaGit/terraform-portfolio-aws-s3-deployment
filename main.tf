@@ -31,33 +31,19 @@ resource "aws_s3_bucket_acl" "s3_acl" {
   acl    = "public-read"
 }
 
-resource "aws_s3_object" "index" {
+resource "aws_s3_object" "html" {
   depends_on = [
     aws_s3_bucket.s3,
     aws_s3_bucket_ownership_controls.s3_ownership,
     aws_s3_bucket_public_access_block.s3_access,
     aws_s3_bucket_acl.s3_acl,
   ]
+  for_each = fileset("www/", "*html")
   bucket       = aws_s3_bucket.s3.id
-  key          = "index.html"
-  source       = "www/index.html"
+  key          = each.key
+  source       = "www/${each.key}"
   acl          = "public-read"
-  etag         = filemd5("www/index.html")
-  content_type = "text/html"
-}
-
-resource "aws_s3_object" "error" {
-  depends_on = [
-    aws_s3_bucket.s3,
-    aws_s3_bucket_ownership_controls.s3_ownership,
-    aws_s3_bucket_public_access_block.s3_access,
-    aws_s3_bucket_acl.s3_acl,
-  ]
-  bucket       = aws_s3_bucket.s3.id
-  key          = "error.html"
-  source       = "www/error.html"
-  acl          = "public-read"
-  etag         = filemd5("www/error.html")
+  etag         = filemd5("www/${each.key}")
   content_type = "text/html"
 }
 
@@ -95,7 +81,7 @@ resource "aws_s3_bucket_website_configuration" "s3_config" {
     key = "error.html"
   }
   provisioner "local-exec" {
-    command = "echo http://${aws_s3_bucket_website_configuration.s3_config.website_endpoint} >> endpoint.txt"
+    command = "echo http://${aws_s3_bucket_website_configuration.s3_config.website_endpoint} > endpoint.txt"
   }
 }
 
