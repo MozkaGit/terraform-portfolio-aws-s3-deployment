@@ -85,3 +85,7 @@ resource "aws_s3_bucket_website_configuration" "s3_config" {
   }
 }
 
+# To print the bucket's website URL after creation
+output "website_endpoint" {
+  value = "http://${aws_s3_bucket_website_configuration.s3_config.website_endpoint}"
+}
