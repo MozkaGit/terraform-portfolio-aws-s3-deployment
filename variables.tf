@@ -1,6 +1,6 @@
 variable "bucket_name" {
   description = "name of S3 bucket"
-  default = "NULL"
+  default     = "NULL"
 }
 
 variable "tags" {
