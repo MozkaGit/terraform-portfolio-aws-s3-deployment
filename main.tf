@@ -43,7 +43,7 @@ resource "aws_s3_object" "html" {
     aws_s3_bucket_public_access_block.s3_access,
     aws_s3_bucket_acl.s3_acl,
   ]
-  for_each = fileset("www/", "*html") # create a loop to retrieve all HTML files in the "www" directory
+  for_each     = fileset("www/", "*html") # create a loop to retrieve all HTML files in the "www" directory
   bucket       = aws_s3_bucket.s3.id
   key          = each.key
   source       = "www/${each.key}" # the parameter each.key refers to the for_each defined on line 46
@@ -67,12 +67,12 @@ resource "aws_s3_object" "assets" {
     aws_s3_bucket_public_access_block.s3_access,
     aws_s3_bucket_acl.s3_acl,
   ]
-  for_each = fileset("www/assets/", "**") # create a loop to retrieve all files in the "www/assets/" directory
-  bucket   = aws_s3_bucket.s3.id
-  key      = each.key
-  source   = "www/assets/${each.key}" # the parameter "each.key" refers to the "for_each" defined on line 70
-  acl      = "public-read"
-  etag     = filemd5("www/assets/${each.key}")
+  for_each     = fileset("www/assets/", "**") # create a loop to retrieve all files in the "www/assets/" directory
+  bucket       = aws_s3_bucket.s3.id
+  key          = each.key
+  source       = "www/assets/${each.key}" # the parameter "each.key" refers to the "for_each" defined on line 70
+  acl          = "public-read"
+  etag         = filemd5("www/assets/${each.key}")
   content_type = lookup(local.mime_types, regex("\\.[^.]+$", each.key), null) # use lookup to retrieve the appropriate content type using "mime.json".
 }
 
