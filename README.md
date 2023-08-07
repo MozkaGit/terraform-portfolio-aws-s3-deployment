@@ -2,6 +2,8 @@
 
 This project aims to deploy a static website (portfolio) on an Amazon S3 bucket using Terraform. The deployment process will be automated using the provided Terraform scripts.
 
+![Architecture diagram](https://github.com/MozkaGit/terraform-s3-static-website/assets/43102748/4f142545-edef-4e99-a466-a7e6cfe61530)
+
 ## Prerequisites
 
 Before getting started, ensure that you have the following tools installed on your machine:
