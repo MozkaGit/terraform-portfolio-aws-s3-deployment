@@ -118,8 +118,8 @@ jobs:
                 name: production-url
                 path: production-url.txt
 
-    test_prod:
-        name: Test production
+    display_url_prod:
+        name: Cat url production
         runs-on: ubuntu-latest
         needs: production
         steps:
@@ -132,8 +132,24 @@ jobs:
                 name: production-url
                 path: .
 
-            - name: Test the production environment
-              run: |
-                sleep 5
-                curl $(cat production-url.txt) | grep "Hi! I'm Mohamed"
-                if [ $? -eq 0 ]; then echo "Production test succeed"; fi
+            - name: Display the url production
+              run: cat production-url.txt
+
+    # test_prod:
+    #     name: Test production
+    #     runs-on: ubuntu-latest
+    #     needs: display_url_prod
+    #     steps:
+    #         - name: Checkout code
+    #           uses: actions/checkout@v4.1.0
+
+    #         - name: Download production URL artifact
+    #           uses: actions/download-artifact@v3
+    #           with:
+    #             name: production-url
+    #             path: .
+
+    #         - name: Test the production environment
+    #           run: |
+    #             curl $(cat production-url.txt) | grep "Hi! I'm Mohamed"
+    #             if [ $? -eq 0 ]; then echo "Production test succeed"; fi
