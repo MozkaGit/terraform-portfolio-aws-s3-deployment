@@ -46,7 +46,7 @@ jobs:
               run: docker load < portfolio.tar
 
             - name: Run Docker container
-              run: docker run -d -p 80:80 portfolio
+              run: docker run -d -p 80:80 -e PORT=80 portfolio
 
             - name: Wait for the container to be ready
               run: sleep 5
