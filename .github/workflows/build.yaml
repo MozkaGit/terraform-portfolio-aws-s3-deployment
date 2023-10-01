@@ -118,8 +118,8 @@ jobs:
                 name: production-url
                 path: production-url.txt
 
-    display_url_prod:
-        name: Cat url production
+    ping_url_prod:
+        name: Ping url production
         runs-on: ubuntu-latest
         needs: production
         steps:
@@ -132,8 +132,8 @@ jobs:
                 name: production-url
                 path: .
 
-            - name: Display the url production
-              run: cat production-url.txt
+            - name: Ping the url production
+              run: ping $(cat production-url.txt)
 
     # test_prod:
     #     name: Test production
