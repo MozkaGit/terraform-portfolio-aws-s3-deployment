@@ -134,5 +134,6 @@ jobs:
 
             - name: Test the production environment
               run: |
+                sleep 5
                 curl $(cat production-url.txt) | grep "Hi! I'm Mohamed"
                 if [ $? -eq 0 ]; then echo "Production test succeed"; fi
