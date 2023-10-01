@@ -1,4 +1,4 @@
-# Deploying a Static Website with Terraform
+# Deploying a Static Website with Terraform<br>[![.github/workflows/build.yaml](https://github.com/MozkaGit/terraform-s3-static-website/actions/workflows/build.yaml/badge.svg)](https://github.com/MozkaGit/terraform-s3-static-website/actions/workflows/build.yaml)
 
 This project aims to deploy a static website (portfolio) on an Amazon S3 bucket using Terraform. The deployment process will be automated using the provided Terraform scripts.
 
