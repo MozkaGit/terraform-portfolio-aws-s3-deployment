@@ -2,8 +2,10 @@ name: static website build and release
 
 on:
     push:
-        branches: [ "main" ]
-        paths-ignore: [ "README.md" ]
+      branches:
+        - main
+      paths-ignore:
+        - 'README.md'
 
 jobs:
     build:
@@ -17,7 +19,7 @@ jobs:
               uses: docker/setup-buildx-action@v3.0.0
 
             - name: Build Docker image
-              uses: |
+              run: |
                  docker build -t portfolio .
                  docker save portfolio > portfolio.tar
 
