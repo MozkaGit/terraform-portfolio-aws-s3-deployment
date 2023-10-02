@@ -108,9 +108,7 @@ jobs:
                 justlogin: true
             - run: |
                 echo $(heroku apps:info --app ${{secrets.HEROKU_APP_NAME}} | grep Web | awk '{print $3}') > production-url.txt
-                export PRODUCTION_URL=$(heroku apps:info --app $HEROKU_APP_NAME | grep Web | awk '{print $3}')
-            #   env:
-            #     heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
+                export PRODUCTION_URL=$(heroku apps:info --app ${{secrets.HEROKU_APP_NAME}} | grep Web | awk '{print $3}')
 
             - name: Upload production URL as artifact
               uses: actions/upload-artifact@v3.1.3
@@ -118,8 +116,8 @@ jobs:
                 name: production-url
                 path: production-url.txt
 
-    ping_url_prod:
-        name: Ping url production
+    test_prod:
+        name: Test production
         runs-on: ubuntu-latest
         needs: production
         steps:
@@ -132,24 +130,7 @@ jobs:
                 name: production-url
                 path: .
 
-            - name: Ping the url production
-              run: ping $(cat production-url.txt)
-
-    # test_prod:
-    #     name: Test production
-    #     runs-on: ubuntu-latest
-    #     needs: display_url_prod
-    #     steps:
-    #         - name: Checkout code
-    #           uses: actions/checkout@v4.1.0
-
-    #         - name: Download production URL artifact
-    #           uses: actions/download-artifact@v3
-    #           with:
-    #             name: production-url
-    #             path: .
-
-    #         - name: Test the production environment
-    #           run: |
-    #             curl $(cat production-url.txt) | grep "Hi! I'm Mohamed"
-    #             if [ $? -eq 0 ]; then echo "Production test succeed"; fi
+            - name: Test the production environment
+              run: |
+                curl $(cat production-url.txt) | grep "Hi! I'm Mohamed"
+                if [ $? -eq 0 ]; then echo "Production test succeed"; fi
