@@ -107,10 +107,10 @@ jobs:
                 heroku_email: ${{secrets.HEROKU_EMAIL}}
                 justlogin: true
             - run: |
-                echo $(heroku apps:info --app $HEROKU_APP_NAME | grep Web | awk '{print $3}') > production-url.txt
+                echo $(heroku apps:info --app ${{secrets.HEROKU_APP_NAME}} | grep Web | awk '{print $3}') > production-url.txt
                 export PRODUCTION_URL=$(heroku apps:info --app $HEROKU_APP_NAME | grep Web | awk '{print $3}')
-              env:
-                heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
+            #   env:
+            #     heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
 
             - name: Upload production URL as artifact
               uses: actions/upload-artifact@v3.1.3
